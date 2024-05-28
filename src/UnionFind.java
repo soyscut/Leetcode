@@ -21,6 +21,7 @@ public class UnionFind {
      */
     private final int[] root;
     private final int[] rank;
+    private int components;
 
     /**
      *  Time: O(N)
@@ -28,6 +29,7 @@ public class UnionFind {
     public UnionFind(int size) {
         root = new int[size];
         rank = new int[size];
+        components = size;
 
         for (int i = 0; i < size; i++) {
             root[i] = i;
@@ -56,6 +58,7 @@ public class UnionFind {
         int rootX = root[x], rootY = root[y];
 
         if (rootX != rootY) {
+            components--;
             if (rank[rootX] < rank[rootY]) {
                 root[rootX] = rootY;
             } else if (rank[rootX] > rank[rootY]) {
@@ -69,5 +72,9 @@ public class UnionFind {
 
     public boolean connected(int x, int y) {
         return find(x) == find(y);
+    }
+
+    public int getComponents() {
+        return components;
     }
 }
